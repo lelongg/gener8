@@ -1,6 +1,0 @@
-module: my_module
-version: 0.1.0
-description: Simple python module
-author:
-email:
-url:

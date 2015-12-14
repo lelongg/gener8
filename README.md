@@ -6,6 +6,11 @@ Summary
 
 Simple yet powerful universal scaffolding tool.
 
+Caution
+-------
+
+**This software is still in experimental stages.** Please report any bug you might encounter.
+
 Description
 -----------
 
@@ -35,12 +40,22 @@ Prerequisites
 
 - python
 
+Dependencies
+------------
+
+- PyYAML `pip install pyyaml`
+- EmPy `pip install empy`
+
 Installation
 ------------
+
+### From PyPI
 
 `pip install gener8`
 
 OR
+
+### From sources
 
 ```
 git clone https://github.com/lelongg/gener8.git
@@ -48,18 +63,45 @@ cd gener8
 python setup.py install
 ```
 
+Quick start
+-----------
+
+[This repository](https://github.com/lelongg/gener8_templates.git) provide some templates you can use to create new projects.
+
+Clone it to the default gener8 templates repository location.
+`git clone https://github.com/lelongg/gener8_templates.git ~/.gener8`
+
+Check if **gener8** is aware of our new templates directory.
+`gener8 -l` should display some templates like *python_module* as available templates.
+
+For generating a new repository based on this particular template:
+`gener8 python_module`
+
+This should ask several questions:
+`Please provide a destination [python_module-2015-12-14]:` press *enter*
+`Do you want to use default values (y/n) [y] ?` press *n* then *enter*
+
+For each variable displayed you can provide a value then hit *enter* or directly press
+enter to use default value given between square brackets.
+
+`Do you want to save values (y/n) [n] ?` press *n* then enter
+
+You should now have a directory called *python_module-2015-12-14* (the actual date might change...) located in your current directory
+and it's content should be customized with the input values you provided.
+
+
 What is a template ?
 --------------------
 
 A template is a folder tree located in your template directory.
 
-Your default template directory is the folder where the *gener8* script reside.
+Your default template directory is _~/.gener8_.
 
 You can change it by setting the **GENER8_DIR** environment variable to a valid path.
 
 A template can provide two special files at is root: *config.gener8* and *default.gener8*.
 
-Both of them must respect [YAML syntax][http://www.yaml.org/spec/1.2/spec.html].
+Both of them must respect [YAML syntax](http://www.yaml.org/spec/1.2/spec.html).
 
 
 ### config.gener8
@@ -128,7 +170,7 @@ It must be a YAML dictionnary but the content can be anything.
 
 ### Name expansion
 
-File and folder names in template tree will be expanded according to [EmPy syntax][http://www.alcyone.com/pyos/empy]
+File and folder names in template tree will be expanded according to [EmPy syntax](http://www.alcyone.com/pyos/empy)
 which allow python processing.
 
 Data from *default.gener8* are easily accessible.
@@ -146,7 +188,7 @@ Some more examples :
 
 ### File parsing
 
-File selected from the *parse* key in the *config.gener8* file will be parsed according to [EmPy syntax][http://www.alcyone.com/pyos/empy].
+File selected from the *parse* key in the *config.gener8* file will be parsed according to [EmPy syntax](http://www.alcyone.com/pyos/empy).
 
 Data from *default.gener8* are accessible the same way as for name expansion.
 
@@ -158,9 +200,9 @@ Sequence of operation
 
 - the whole template tree (excepting *config.gener8* and *default.gener8* if provided) will be copied to the destination folder which will be created if it doesn't exist.
 
-- Every file and folder name from the template tree will be expanded according to [EmPy syntax][http://www.alcyone.com/pyos/empy].
+- Every file and folder name from the template tree will be expanded according to [EmPy syntax](http://www.alcyone.com/pyos/empy).
 
-- Every file selected from the *parse* key in the *config.gener8* file will be parsed according to [EmPy syntax][http://www.alcyone.com/pyos/empy].
+- Every file selected from the *parse* key in the *config.gener8* file will be parsed according to [EmPy syntax](http://www.alcyone.com/pyos/empy).
 
 - Commands from *post* key in the *config.gener8* file will be run.
 
@@ -170,34 +212,34 @@ Data overriding
 
 Data from *default.gener8* file can be overrided by user.
 
-You just have to provide a file called *.gener8* in the folder from where you run the **gener8** command.
+You just have to provide a file called *data.gener8* in the folder from where you run the **gener8** command.
 
 This file should reproduce the *default.gener8* structure from the template you want to deploy.
 
 You are free to change any of the values and your modifications will override default values.
 
 If you run the **gener8** command to deploy a template which contains a *default.gener8* file
-from a directory which does not contain a *.gener8* file, it will ask you if you want to
+from a directory which does not contain a *data.gener8* file, it will ask you if you want to
 manually override default parameters or use default ones.
 
 Whatever you answer, you will be asked to save these values (manually provided or default ones) to
-a *.gener8* file in the current folder.
+a *data.gener8* file in the current folder.
 
 
 How to create a template ?
 --------------------------
 
-Steps to follow:
+### Steps to follow:
 
 1. Create a folder into **gener8** template dir.
 
 That's it ! You've created your first **gener8** template !
 
 *Note:* You might wonder where the **gener8** template dir is located: type `gener8 -h` and the answer will be given.
-Change it easily by setting **GENER8_DIR** environment variable. For example: `export GENER8_DIR="~/.gener8"`.
-You might want to set it permanently by adding this change to your *.bashrc*. For example: `echo export GENER8_DIR="~/.gener8" >> ~/.bashrc`.
+Change it easily by setting **GENER8_DIR** environment variable. For example: `export GENER8_DIR="/my/new/template/repository"`.
+You might want to set it permanently by adding this change to your *.bashrc*. For example: `echo export GENER8_DIR="/my/new/template/repository" >> ~/.bashrc`.
 
-Next (optional) steps are:
+### Next (optional) steps are:
 
 - Add files and folders you want to be part of your template inside the directory you've just created.
 - Use name and content expansion syntax to make your template customizable.
