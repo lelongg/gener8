@@ -233,13 +233,17 @@ def apply_parents(parents, target_dir, children):
                 'Recursive template inheritance detected: {0} -> {1}'.format(
                     parent, children))
 
-def copy_tree(src, dst, data={}):
+def copy_tree(src, dst, data={}, exclude=[]):
 
     copied_files = []
 
     excluded_files = [
         os.path.join(src, TEMPLATE_CONFIG_FILE_NAME),
         os.path.join(src, TEMPLATE_DEFAULT_DATA_FILE_NAME),]
+
+    for exclude_pattern in exclude:
+        paths = expanded_paths(exclude_pattern, src)
+        excluded_files += paths
 
     if not os.path.isdir(dst):
         os.mkdir(dst)
@@ -349,7 +353,9 @@ def apply_template(template, dest_dir, children=[]):
     print("Copying content from \"{0}\" directory to \"{1}\"...".format(
         source_dir, dest_dir))
 
-    copied_files = copy_tree(source_dir, dest_dir, data)
+    exclude = get_from_dict(config, 'exclude', [])
+
+    copied_files = copy_tree(source_dir, dest_dir, data, exclude)
 
     parse = get_from_dict(config, 'parse', [])
     apply_data_to_template_files(parse, copied_files, data, dest_dir)
