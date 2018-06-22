@@ -111,6 +111,8 @@ Here is a sample *config.gener8*:
 ```
 parents: [template1, template2]
 
+exclude: [*.html]
+
 parse: [README.md, src/**/*.c, doc/**/*]
 
 pre:
@@ -134,6 +136,10 @@ It must be a YAML dictionnary containing the following keys:
 - __parents__
 : A YAML list containing parent templates name.
 Parent templates will be applied to the destination before applying the current one.
+
+- __exclude__
+: The list of files which will be excluded.
+Files and directories globbing is supported.
 
 - __parse__
 : The list of files which will be parsed.
