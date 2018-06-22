@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='gener8',
-    version='0.1.1',
+    version='0.2.0',
     description='Simple yet powerful universal scaffolding tool',
     author='Gérald Lelong',
     author_email='lelong.gerald@gmail.com',
